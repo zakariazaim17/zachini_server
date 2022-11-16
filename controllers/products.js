@@ -29,24 +29,35 @@ export const getProductById = async (req, res) => {
 
 export const getProductByCategory = async (req, res) => {
   const productCategory = req.params.category.toUpperCase();
-  const subCategory = req.params.subCategory;
-  const productBrand = req.params.category.brands;
+  const subCategory = req.params.subCategory?.toUpperCase();
+  const productBrand = req.params.brands?.toUpperCase();
 
-  console.log("PARAMS forwarded", subCategory);
+  console.log("PARAMS forwarded", productCategory, subCategory, productBrand);
 
-  console.log("passs", request);
   try {
-    const fetchedProductsByCategory = await Products.aggregate([
+    const filterConditions = [{ category: productCategory }];
+    if (subCategory) {
+      filterConditions.push({
+        sub_category: subCategory,
+      });
+    }
+    if (productBrand) {
+      filterConditions.push({
+        brand: productBrand,
+      });
+    }
+
+    const filteredProducts = [
       {
         $match: {
-          $and: [
-            { category: productCategory },
-            { sub_category: subCategory },
-            { brand: productBrand },
-          ],
+          $and: filterConditions,
         },
       },
-    ]);
+    ];
+
+    const fetchedProductsByCategory = await Products.aggregate(
+      filteredProducts
+    );
     res.send(fetchedProductsByCategory);
   } catch (e) {
     console.log("error", e);
@@ -87,6 +98,24 @@ export const getProductByGenderAndCategory = async (req, res) => {
   }
 };
 
+// get products by subCategories
+
+export const getProductsBySubCategory = async (req, res) => {
+  const productSubCategory = req.params.subCategory.toUpperCase();
+
+  console.log("PARAMS forwarded", productSubCategory);
+
+  try {
+    const fetchedProducts = await Products.find({
+      sub_category: productSubCategory,
+    });
+    res.status(200).send(fetchedProducts);
+  } catch (e) {
+    console.log("error", e);
+    res.status(500).send("could not get products by sub category");
+  }
+};
+
 // Create new product (push image to Firebase and append the URL link to new product )
 export const createProduct = async (req, res) => {
   const body = req.body;
@@ -102,9 +131,10 @@ export const createProduct = async (req, res) => {
     });
 
     await newProduct.save();
-    res.send(newProduct);
+    res.status(200).send(newProduct);
   } catch (e) {
     console.log("error", e);
+    res.status(500).send("could not create new product");
   }
 };
 
@@ -123,8 +153,9 @@ export const updateProduct = async (req, res) => {
       productId,
       productData
     );
-    res.send(updatedProduct);
+    res.status(200).send(updatedProduct);
   } catch (e) {
     console.log("error", e);
+    res.status(500).send("problem occured while updating product");
   }
 };

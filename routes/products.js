@@ -7,6 +7,7 @@ import {
   getProductByCategory,
   getProductByGenderAndCategory,
   getProductBybrand,
+  getProductsBySubCategory,
 } from "../controllers/products.js";
 
 const router = express.Router();
@@ -19,9 +20,9 @@ router.get("/category/:category/:subCategory?/:brands?", getProductByCategory);
 
 router.get("/brand/:brand", getProductBybrand);
 
-router.get("/gender/:gender/:category", getProductByGenderAndCategory);
+router.get("/subCategory/:subCategory", getProductsBySubCategory);
 
-router.get;
+router.get("/gender/:gender/:category", getProductByGenderAndCategory);
 
 router.post("/", createProduct);
 

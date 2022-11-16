@@ -3,12 +3,18 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import productRoutes from "./routes/products.js";
+import userRoutes from "./routes/users.js";
 import multer from "multer";
+
 import MulterGridfsStorage from "multer-gridfs-storage";
 
-import firebaseApp from "./firebase/firebase.js";
+import Users from "./models/user.js";
 
 const app = express();
+
+import dotenv from "dotenv";
+import { authenticate } from "./firebase/userHandler.js";
+dotenv.config();
 
 /*
 const imagesDIR = "./uploads/images/";
@@ -48,7 +54,8 @@ app.use(
   }).single("product_main_image")
 );
 
-app.use("/products", productRoutes);
+app.use("/products", authenticate, productRoutes);
+app.use("/user", userRoutes);
 
 //const express = require("express");
 

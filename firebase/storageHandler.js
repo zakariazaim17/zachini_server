@@ -1,9 +1,4 @@
-//import firebaseApp from "./firebase.js";
-//import storage from "./firebase.js";
-
-import { async } from "@firebase/util";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { v4 as uuidv4 } from "uuid";
 
 export async function uploadImage(image) {
   const storage = getStorage();

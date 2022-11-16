@@ -1,5 +1,13 @@
 import { initializeApp } from "firebase/app";
-import { getStorage } from "firebase/storage";
+import admin from "firebase-admin";
+import dotenv from "dotenv";
+dotenv.config();
+
+var serviceAccount = JSON.parse(process.env.private_auth_admin_key);
+
+export const adminAuth = admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 
 const firebaseConfig = {
   apiKey: "AIzaSyAn7V7mWdYAw-HZwWcJ6_4rU_HE5Mr_euc",
@@ -11,9 +19,4 @@ const firebaseConfig = {
   measurementId: "G-N13LSKQM2L",
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
-//console.log(firebaseApp);
-
-//const storage = getStorage(firebaseApp);
-
-export default firebaseApp;
+export const firebaseApp = initializeApp(firebaseConfig);

@@ -29,6 +29,7 @@ const productSchema = mongoose.Schema({
   gender: {
     type: String,
     enum: ["MEN", "WOMEN"],
+    default: "WOMEN",
   },
   product_main_image: {
     type: String,
