@@ -1,14 +1,10 @@
 import express from "express";
-import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import productRoutes from "./routes/products.js";
 import userRoutes from "./routes/users.js";
+import adminRoutes from "./routes/admin.js";
 import multer from "multer";
-
-import MulterGridfsStorage from "multer-gridfs-storage";
-
-import Users from "./models/user.js";
 
 const app = express();
 
@@ -56,11 +52,9 @@ app.use(
 
 app.use("/products", authenticate, productRoutes);
 app.use("/user", userRoutes);
+app.use("/admin", adminRoutes);
 
-//const express = require("express");
-
-const CONNECTION_URL =
-  "mongodb+srv://zachini:ZACHINI@cluster0.redbg3t.mongodb.net/?retryWrites=true&w=majority";
+const CONNECTION_URL = process.env.mongo_db_connection_server;
 //  "mongodb+srv://zachini:ZACHINI@cluster0.1zlundx.mongodb.net/?retryWrites=true&w=majority";
 //  "mongodb+srv://zachini:Zachini@cluster0.5llwsvw.mongodb.net/?retryWrites=true&w=majority";
 

@@ -47,7 +47,7 @@ export const signout = async () => {
 };
 
 export const authenticate = async (req, res, next) => {
-  console.log("autorrrrrrII  :", req.headers.authorization?.split(" ")[1]);
+  //console.log("autorrrrrrII  :", req.headers?.authorization?.split(" ")[1]);
 
   if (!req.headers.authorization)
     return res.status(500).json("no token provided");

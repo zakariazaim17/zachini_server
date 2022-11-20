@@ -18,10 +18,6 @@ const productSchema = mongoose.Schema({
     default: 0,
     min: 0,
   },
-  owner: {
-    type: String,
-    default: "",
-  },
   tags: {
     type: Array,
     default: [],
@@ -53,7 +49,6 @@ const productSchema = mongoose.Schema({
     type: String,
     default: "",
   },
-
   // gucci, chanel ..
   brand: {
     type: String,
