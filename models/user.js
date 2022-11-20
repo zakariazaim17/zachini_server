@@ -5,15 +5,12 @@ const userSchema = mongoose.Schema({
     type: String,
     default: "",
   },
+  email: {
+    type: String,
+  },
   country: {
     type: String,
     default: "",
-  },
-  age: {
-    type: Number,
-  },
-  email: {
-    type: String,
   },
 });
 

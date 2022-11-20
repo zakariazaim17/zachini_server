@@ -15,7 +15,7 @@ export const createUser = async (req, res) => {
     console.log("new USER", createdUser);
 
     const newUser = new Users({
-      body,
+      ...body,
     });
 
     /* const token = jwt.sign(
