@@ -6,6 +6,7 @@ import {
   loginAdmin,
   signOut,
 } from "../controllers/admin.js";
+import { authenticate } from "../firebase/userHandler.js";
 
 const router = express.Router();
 
@@ -15,6 +16,6 @@ router.post("/login", loginAdmin);
 
 router.post("/signOut", signOut);
 
-router.post("/newProduct", createProduct);
+router.post("/newProduct", authenticate, createProduct);
 
 export default router;

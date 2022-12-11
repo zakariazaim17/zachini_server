@@ -4,6 +4,7 @@ import cors from "cors";
 import productRoutes from "./routes/products.js";
 import userRoutes from "./routes/users.js";
 import adminRoutes from "./routes/admin.js";
+import oderRoutes from "./routes/order.js";
 import multer from "multer";
 
 const app = express();
@@ -53,6 +54,7 @@ app.use(
 app.use("/products", authenticate, productRoutes);
 app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
+app.use("/order", authenticate, oderRoutes);
 
 const CONNECTION_URL = process.env.mongo_db_connection_server;
 //  "mongodb+srv://zachini:ZACHINI@cluster0.1zlundx.mongodb.net/?retryWrites=true&w=majority";
