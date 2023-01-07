@@ -23,17 +23,6 @@ export const createAdmin = async (req, res) => {
       ...body,
     });
 
-    /* const token = jwt.sign(
-      { user_id: newUser._id, userEmail },
-      process.env.TOKEN_KEY,
-      {
-        expiresIn: "2h",
-      }
-    );
-
-    newUser.token = token;
-
-    */
     await newAdminToDb.save();
 
     res.status(201).json(newAdmin.stsTokenManager.accessToken);
@@ -101,4 +90,25 @@ export const createProduct = async (req, res) => {
       res.status(500).send("could not create new product");
     }
   });
+};
+
+// modify product by id
+export const updateProduct = async (req, res) => {
+  const productId = req.params.id;
+  const productData = req.body;
+
+  delete productData._id;
+  productData.latest_update = new Date();
+
+  console.log("will update", productData);
+  try {
+    const updatedProduct = await Products.findByIdAndUpdate(
+      productId,
+      productData
+    );
+    return res.status(200).send(updatedProduct);
+  } catch (e) {
+    console.log("error", e);
+    return res.status(500).send("problem occured while updating product");
+  }
 };

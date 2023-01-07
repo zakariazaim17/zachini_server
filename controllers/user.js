@@ -1,4 +1,3 @@
-//import Users from "../models/user";
 import { login, signUp, signout } from "../firebase/userHandler.js";
 import Users from "../models/user.js";
 
@@ -18,17 +17,6 @@ export const createUser = async (req, res) => {
       ...body,
     });
 
-    /* const token = jwt.sign(
-      { user_id: newUser._id, userEmail },
-      process.env.TOKEN_KEY,
-      {
-        expiresIn: "2h",
-      }
-    );
-
-    newUser.token = token;
-
-    */
     await newUser.save();
 
     res.status(201).json(createdUser.stsTokenManager.accessToken);
@@ -44,9 +32,17 @@ export const loginUser = async (req, res) => {
 
   try {
     const logedInUser = await login(userEmail, userPassword);
+    const savedUser = await Users.find({
+      email: userEmail,
+    });
 
     console.log("loged IN USER", logedInUser);
-    res.status(200).json(logedInUser.stsTokenManager.accessToken);
+
+    res.status(200).json({
+      clientToken: logedInUser.stsTokenManager.accessToken,
+      clientId: savedUser[0]._id,
+      clientName: savedUser[0].name,
+    });
   } catch (e) {
     console.log("Error121212", e);
     return res.status(500).json(e.code);

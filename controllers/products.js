@@ -112,24 +112,3 @@ export const getProductsBySubCategory = async (req, res) => {
     res.status(500).send("could not get products by sub category");
   }
 };
-
-// modify product by id
-export const updateProduct = async (req, res) => {
-  const productId = req.params.id;
-  const productData = req.body;
-
-  delete productData._id;
-  productData.latest_update = new Date();
-
-  console.log("will update", productData);
-  try {
-    const updatedProduct = await Products.findByIdAndUpdate(
-      productId,
-      productData
-    );
-    return res.status(200).send(updatedProduct);
-  } catch (e) {
-    console.log("error", e);
-    return res.status(500).send("problem occured while updating product");
-  }
-};

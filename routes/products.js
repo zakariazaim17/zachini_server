@@ -2,7 +2,6 @@ import express from "express";
 import {
   getProducts,
   getProductById,
-  updateProduct,
   getProductByCategory,
   getProductByGenderAndCategory,
   getProductBybrand,
@@ -22,7 +21,5 @@ router.get("/brand/:brand", getProductBybrand);
 router.get("/subCategory/:subCategory", getProductsBySubCategory);
 
 router.get("/gender/:gender/:category", getProductByGenderAndCategory);
-
-router.put("/:id", updateProduct);
 
 export default router;
