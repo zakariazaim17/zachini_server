@@ -19,7 +19,11 @@ export const createUser = async (req, res) => {
 
     await newUser.save();
 
-    res.status(201).json(createdUser.stsTokenManager.accessToken);
+    res.status(201).json({
+      clientToken: createdUser.stsTokenManager.accessToken,
+      clientId: newUser._id,
+      clientName: newUser.name,
+    });
   } catch (e) {
     console.log("error", e);
     return res.status(500).json(e.code);
