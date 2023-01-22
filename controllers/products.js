@@ -67,10 +67,9 @@ export const getProductByCategory = async (req, res) => {
 
 // get product by brand
 export const getProductBybrand = async (req, res) => {
-  console.log("PARAMS forwarded", productBrand);
   try {
     const fetchedProducts = await Products.find({
-      brand: req.params.brand,
+      brand: req.params.brand.toUpperCase(),
     });
     res.status(200).json(fetchedProducts);
   } catch (e) {
