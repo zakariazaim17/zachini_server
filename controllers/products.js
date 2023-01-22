@@ -112,3 +112,15 @@ export const getProductsBySubCategory = async (req, res) => {
     res.status(500).send("could not get products by sub category");
   }
 };
+
+export const getProductsSale = async (req, res) => {
+  try {
+    const fetchedProducts = await Products.find({
+      is_available_for_sale: true,
+    });
+    res.status(200).send(fetchedProducts);
+  } catch (e) {
+    console.log("error", e);
+    res.status(500).send("could not get products in sale");
+  }
+};
