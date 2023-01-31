@@ -9,6 +9,10 @@ const productSchema = mongoose.Schema({
     type: String,
     default: "",
   },
+  details: {
+    type: String,
+    default: "",
+  },
   price: {
     type: Number,
     default: 0,
@@ -46,6 +50,10 @@ const productSchema = mongoose.Schema({
   },
   // handBags, toteBags
   sub_category: {
+    type: String,
+    default: "",
+  },
+  size: {
     type: String,
     default: "",
   },

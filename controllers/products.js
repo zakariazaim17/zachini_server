@@ -31,29 +31,34 @@ export const getProductByCategory = async (req, res) => {
   const productCategory = req.params.category.toUpperCase();
   const subCategory = req.params.subCategory?.toUpperCase();
   const productBrand = req.params.brands?.toUpperCase();
+  const floorNumber = req.params?.floorNumber;
 
   console.log("PARAMS forwarded", productCategory, subCategory, productBrand);
 
   try {
     const filterConditions = [{ category: productCategory }];
-    if (subCategory) {
+    if (subCategory && subCategory !== "NULL") {
       filterConditions.push({
         sub_category: subCategory,
       });
     }
-    if (productBrand) {
+    if (productBrand && productBrand !== "NULL") {
       filterConditions.push({
         brand: productBrand,
       });
     }
 
-    const filteredProducts = [
+    let filteredProducts = [
       {
         $match: {
           $and: filterConditions,
         },
       },
     ];
+
+    if (floorNumber) {
+      filteredProducts.push({ $sample: { size: Number(floorNumber) } });
+    }
 
     const fetchedProductsByCategory = await Products.aggregate(
       filteredProducts

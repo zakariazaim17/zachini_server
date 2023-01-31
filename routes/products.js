@@ -15,7 +15,10 @@ router.get("/", getProducts);
 
 router.get("/singleProduct/:id", getProductById);
 
-router.get("/category/:category/:subCategory?/:brands?", getProductByCategory);
+router.get(
+  "/category/:category/:subCategory?/:brands?/:floorNumber?",
+  getProductByCategory
+);
 
 router.get("/brand/:brand", getProductBybrand);
 
