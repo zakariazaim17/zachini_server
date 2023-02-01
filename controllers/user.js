@@ -40,6 +40,8 @@ export const loginUser = async (req, res) => {
       email: userEmail,
     });
 
+    if (savedUser.length === 0) return res.status(500).json("User not found");
+
     console.log("loged IN USER", logedInUser);
 
     res.status(200).json({
