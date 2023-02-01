@@ -25,7 +25,11 @@ export const createAdmin = async (req, res) => {
 
     await newAdminToDb.save();
 
-    res.status(201).json(newAdmin.stsTokenManager.accessToken);
+    res.status(201).json({
+      clientToken: newAdmin.stsTokenManager.accessToken,
+      clientId: newAdminToDb._id,
+      clientName: newAdminToDb.name,
+    });
   } catch (e) {
     console.log("error", e);
     return res.status(500).json(e.code);
@@ -45,7 +49,11 @@ export const loginAdmin = async (req, res) => {
       const logedInAdmin = await login(adminEmail, adminPassword);
 
       console.log("loged IN USER", logedInAdmin);
-      res.status(200).json(logedInAdmin.stsTokenManager.accessToken);
+      res.status(200).json({
+        clientToken: logedInAdmin.stsTokenManager.accessToken,
+        clientId: getAdminFromDb[0]._id,
+        clientName: getAdminFromDb[0].name,
+      });
     } else {
       return res.status(500).json("Admin does not exist");
     }
