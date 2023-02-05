@@ -1,11 +1,16 @@
 import express from "express";
 
-import { createUser, loginUser, signOut } from "../controllers/user.js";
+import {
+  createUser,
+  getUserById,
+  loginUser,
+  signOut,
+} from "../controllers/user.js";
 import { authenticate } from "../firebase/userHandler.js";
 
 const router = express.Router();
 
-//router.get("/", getUser);
+router.get("/", authenticate, getUserById);
 
 router.post("/signUp", createUser);
 

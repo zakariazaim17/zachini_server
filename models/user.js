@@ -7,10 +7,25 @@ const userSchema = mongoose.Schema({
   },
   email: {
     type: String,
+    required: true,
   },
   country: {
     type: String,
     default: "",
+  },
+  date_of_birth: {
+    type: String,
+    default: "",
+  },
+  phone: {
+    type: Number,
+  },
+  gender: {
+    type: String,
+    enum: ["MALE", "FEMALE"],
+  },
+  zip_code: {
+    type: Number,
   },
 });
 

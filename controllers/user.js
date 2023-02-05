@@ -30,6 +30,20 @@ export const createUser = async (req, res) => {
   }
 };
 
+export const getUserById = async (req, res) => {
+  const userId = req.body.id;
+
+  try {
+    const user = await Users.find({
+      _id: userId,
+    });
+    res.status(200).json(user);
+  } catch (e) {
+    console.log("error", e);
+    res.status(500).json("Could not get client information");
+  }
+};
+
 export const loginUser = async (req, res) => {
   const userEmail = req.body.email.toLowerCase();
   const userPassword = req.body.password;

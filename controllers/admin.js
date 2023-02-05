@@ -36,6 +36,20 @@ export const createAdmin = async (req, res) => {
   }
 };
 
+export const getAdminById = async (req, res) => {
+  const userId = req.body.id;
+
+  try {
+    const admin = await Admin.find({
+      _id: userId,
+    });
+    res.status(200).json(admin);
+  } catch (e) {
+    console.log("error", e);
+    res.status(500).json("Could not get admin information");
+  }
+};
+
 export const loginAdmin = async (req, res) => {
   const adminEmail = req.body.email.toLowerCase();
   const adminPassword = req.body.password;
