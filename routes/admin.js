@@ -12,7 +12,7 @@ import { authenticate } from "../firebase/userHandler.js";
 
 const router = express.Router();
 
-router.get("/", getAdminById);
+router.get("/:id", getAdminById);
 
 router.post("/signUp", createAdmin);
 

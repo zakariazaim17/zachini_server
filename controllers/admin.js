@@ -37,7 +37,7 @@ export const createAdmin = async (req, res) => {
 };
 
 export const getAdminById = async (req, res) => {
-  const userId = req.body.id;
+  const userId = req.params.id;
 
   try {
     const admin = await Admin.find({

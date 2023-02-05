@@ -31,7 +31,7 @@ export const createUser = async (req, res) => {
 };
 
 export const getUserById = async (req, res) => {
-  const userId = req.body.id;
+  const userId = req.params.id;
 
   try {
     const user = await Users.find({

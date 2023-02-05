@@ -10,7 +10,7 @@ import { authenticate } from "../firebase/userHandler.js";
 
 const router = express.Router();
 
-router.get("/", authenticate, getUserById);
+router.get("/:id", authenticate, getUserById);
 
 router.post("/signUp", createUser);
 
