@@ -15,9 +15,11 @@ export async function uploadImage(image) {
 
   try {
     const task = uploadBytes(storageRef, image.buffer, metadata);
+
+    console.log("task given", await task);
     //imageRef.child(name).put(image, image.type);
     return await task
-      .then(async (snapshot) => await getDownloadURL(snapshot.ref))
+      .then((snapshot) => getDownloadURL(snapshot.ref))
       .then((url) => {
         console.log("This is the image URL", url);
         return url;

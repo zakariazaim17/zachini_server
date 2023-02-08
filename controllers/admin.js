@@ -97,6 +97,9 @@ export const createProduct = async (req, res) => {
     try {
       const uploadedImageUrl = await uploadImage(image);
 
+      if (!uploadedImageUrl) {
+        return res.status(500).json("Could not upload image file");
+      }
       const newProduct = new Products({
         ...req.body,
         category: req.body.category.toUpperCase(),
