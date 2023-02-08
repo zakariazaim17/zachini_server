@@ -3,6 +3,8 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 export async function uploadImage(image) {
   const storage = getStorage();
 
+  storage.maxUploadRetryTime = 30000;
+
   const name = new Date() + image.originalname;
 
   const storageRef = ref(storage, `images/${name}`);
